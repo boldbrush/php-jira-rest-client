@@ -1,5 +1,7 @@
 # PHP JIRA Rest Client
 
+> IMPORTANT: This is a forked of https://github.com/lesstif/php-jira-rest-client, please use the original package.
+
 [![Latest Stable Version](https://poser.pugx.org/lesstif/php-jira-rest-client/v/stable)](https://packagist.org/packages/lesstif/php-jira-rest-client)
 [![Latest Unstable Version](https://poser.pugx.org/lesstif/php-jira-rest-client/v/unstable)](https://packagist.org/packages/lesstif/php-jira-rest-client)
 [![Build Status](https://travis-ci.org/lesstif/php-jira-rest-client.svg?branch=master)](https://travis-ci.org/lesstif/php-jira-rest-client)
@@ -38,7 +40,7 @@
    }
    ```
 
-3. Then run Composer's install or update commands to complete installation. 
+3. Then run Composer's install or update commands to complete installation.
 
    ```sh
    php composer.phar install
@@ -59,7 +61,7 @@ you can choose loads environment variables either 'dotenv' or 'array'.
 ## use dotenv
 
 
-copy .env.example file to .env on your project root.	
+copy .env.example file to .env on your project root.
 
 ```sh
 JIRA_HOST="https://your-jira.host.com"
@@ -80,16 +82,16 @@ JIRA_REST_API_V3=false
 As of March 15, 2018, in accordance to the [Atlassian REST API Policy](https://developer.atlassian.com/platform/marketplace/atlassian-rest-api-policy/), Basic auth with password to be deprecated.
 Instead of password, you should using [API token](https://confluence.atlassian.com/cloud/api-tokens-938839638.html).
 
-**Laravel Users:** 
+**Laravel Users:**
 If you are developing with laravel framework(5.x), you must append above configuration to your application .env file.
 
 **REST API V3 Note:**
-In accordance to the [Atlassian's deprecation notice](https://developer.atlassian.com/cloud/jira/platform/deprecation-notice-user-privacy-api-migration-guide/), After the 29th of april 2019, REST API no longer supported username and userKey, 
+In accordance to the [Atlassian's deprecation notice](https://developer.atlassian.com/cloud/jira/platform/deprecation-notice-user-privacy-api-migration-guide/), After the 29th of april 2019, REST API no longer supported username and userKey,
 and instead use the account ID.
 if you are JIRA Cloud users, you need to set *JIRA_REST_API_V3=true* in the .env file.
 
 **CAUTION**
-this library not fully supported JIRA REST API V3 yet. 
+this library not fully supported JIRA REST API V3 yet.
 
 ## use array
 
@@ -235,10 +237,10 @@ try {
     $proj = new ProjectService();
 
     $pj = $proj->createProject($p);
-   
+
     // "http://example.com/rest/api/2/project/10042"
     var_dump($pj->self);
-    // 10042 
+    // 10042
     var_dump($pj->id);
 } catch (JiraException $e) {
     print("Error Occured! " . $e->getMessage());
@@ -277,7 +279,7 @@ try {
     $proj = new ProjectService();
 
     $pj = $proj->updateProject($p, 'EX');
-   
+
     var_dump($pj);
 } catch (JiraException $e) {
     print("Error Occured! " . $e->getMessage());
@@ -301,7 +303,7 @@ try {
     $proj = new ProjectService();
 
     $pj = $proj->deleteProject('EX');
-   
+
     var_dump($pj);
 } catch (JiraException $e) {
     print("Error Occured! " . $e->getMessage());
@@ -323,8 +325,8 @@ try {
     $proj = new ProjectService();
 
     $p = $proj->get('TEST');
-	
-    var_dump($p);			
+
+    var_dump($p);
 } catch (JiraException $e) {
 	print("Error Occured! " . $e->getMessage());
 }
@@ -349,8 +351,8 @@ try {
     foreach ($prjs as $p) {
         echo sprintf("Project Key:%s, Id:%s, Name:%s, projectCategory: %s\n",
             $p->key, $p->id, $p->name, $p->projectCategory['name']
-        );			
-    }			
+        );
+    }
 } catch (JiraException $e) {
 	print("Error Occured! " . $e->getMessage());
 }
@@ -467,9 +469,9 @@ use JiraRestApi\JiraException;
 try {
     $fieldService = new FieldService();
 
-    // return custom field only. 
-    $ret = $fieldService->getAllFields(Field::CUSTOM); 
-    	
+    // return custom field only.
+    $ret = $fieldService->getAllFields(Field::CUSTOM);
+
     var_dump($ret);
 } catch (JiraException $e) {
     $this->assertTrue(false, 'testSearch Failed : '.$e->getMessage());
@@ -490,7 +492,7 @@ use JiraRestApi\JiraException;
 
 try {
     $field = new Field();
-    
+
     $field->setName("New custom field")
             ->setDescription("Custom field for picking groups")
             ->setType("com.atlassian.jira.plugin.system.customfieldtypes:grouppicker")
@@ -499,7 +501,7 @@ try {
     $fieldService = new FieldService();
 
     $ret = $fieldService->create($field);
-    
+
     var_dump($ret);
 } catch (JiraException $e) {
     $this->assertTrue(false, 'Field Create Failed : '.$e->getMessage());
@@ -523,7 +525,7 @@ use JiraRestApi\JiraException;
 
 try {
     $issueService = new IssueService();
-	
+
     $queryParam = [
         'fields' => [  // default: '*all'
             'summary',
@@ -539,10 +541,10 @@ try {
             'changelog',
         ]
     ];
-            
+
     $issue = $issueService->get('TEST-867', $queryParam);
-	
-    var_dump($issue->fields);	
+
+    var_dump($issue->fields);
 } catch (JiraException $e) {
 	print("Error Occured! " . $e->getMessage());
 }
@@ -577,11 +579,11 @@ try {
                 ->setSecurityId(10001 /* security scheme id */)
                 ->setDueDate('2019-06-19')
             ;
-	
+
     $issueService = new IssueService();
 
     $ret = $issueService->create($issueField);
-	
+
     //If success, Returns a link to the created issue.
     var_dump($ret);
 } catch (JiraException $e) {
@@ -609,11 +611,11 @@ try {
                     ['value' => 'opt2'], ['value' => 'opt4']
                 ]) // Select List (multiple choice)
     ;
-	
+
     $issueService = new IssueService();
 
     $ret = $issueService->create($issueField);
-	
+
     //If success, Returns a link to the created issue.
     var_dump($ret);
 } catch (JiraException $e) {
@@ -651,11 +653,11 @@ try {
                 ->setPriorityName("Critical")
                 ->setIssueType("Bug")
                 ->setDescription("Full description for second issue");
-    
+
     $issueService = new IssueService();
 
     $ret = $issueService->createMultiple([$issueFieldOne, $issueFieldTwo]);
-    
+
     //If success, returns an array of the created issues
     var_dump($ret);
 } catch (JiraException $e) {
@@ -675,7 +677,7 @@ Creating a sub-task is similar to creating a regular issue, with two important m
 ```
 
 for example
-​                
+​
 ```php
 <?php
 require 'vendor/autoload.php';
@@ -731,9 +733,9 @@ Full description for issue
 - order list 2
 -- sub order list 1
 -- sub order list 1
-- order list 3 
+- order list 3
 DESC;
-    
+
     $issueField->setProjectKey("TEST")
                 ->setSummary("something's wrong")
                 ->setAssigneeAccountId("user-account-id-here")
@@ -746,11 +748,11 @@ DESC;
                 // set issue security if you need.
                 ->setDueDate('2019-06-19')
             ;
-	
+
     $issueService = new IssueService();
 
     $ret = $issueService->create($issueField);
-	
+
     //If success, Returns a link to the created issue.
     var_dump($ret);
 } catch (JiraException $e) {
@@ -778,11 +780,11 @@ try {
                     ['value' => 'opt2'], ['value' => 'opt4']
                 ]) // Select List (multiple choice)
     ;
-	
+
     $issueService = new IssueService();
 
     $ret = $issueService->create($issueField);
-	
+
     //If success, Returns a link to the created issue.
     var_dump($ret);
 } catch (JiraException $e) {
@@ -809,7 +811,7 @@ try {
     $issueService = new IssueService();
 
     // multiple file upload support.
-    $ret = $issueService->addAttachments($issueKey, 
+    $ret = $issueService->addAttachments($issueKey,
         ['screen_capture.png', 'bug-description.pdf', 'README.md']
     );
 
@@ -834,7 +836,7 @@ use JiraRestApi\JiraException;
 
 $issueKey = "TEST-879";
 
-try {			
+try {
     $issueField = new IssueField(true);
 
     $issueField->setAssigneeName("admin")
@@ -988,7 +990,7 @@ try {
 } catch (JiraException $e) {
     $this->assertTrue(FALSE, "Change Assignee Failed : " . $e->getMessage());
 }
-```   
+```
 
 #### Remove Issue
 
@@ -1030,7 +1032,7 @@ use JiraRestApi\JiraException;
 
 $issueKey = "TEST-879";
 
-try {			
+try {
     $comment = new Comment();
 
     $body = <<<COMMENT
@@ -1125,10 +1127,10 @@ try {
     $commentId = 12345;
 
     $issueService = new IssueService();
-        
+
     $comment = new Comment();
     $comment->setBody('Updated comments');
-    
+
     $issueService->updateComment($issueKey, $commentId, $comment);
 
 } catch (JiraException $e) {
@@ -1157,7 +1159,7 @@ use JiraRestApi\JiraException;
 
 $issueKey = "TEST-879";
 
-try {			
+try {
     $transition = new Transition();
     $transition->setTransitionName('Resolved');
     $transition->setCommentBody('performing the transition via REST API.');
@@ -1212,20 +1214,20 @@ try {
     $issueService = new IssueService();
 
     $pagination = -1;
-  
-    $startAt = 0;	//the index of the first issue to return (0-based)    
-    $maxResult = 3;	// the maximum number of issues to return (defaults to 50). 
+
+    $startAt = 0;	//the index of the first issue to return (0-based)
+    $maxResult = 3;	// the maximum number of issues to return (defaults to 50).
     $totalCount = -1;	// the number of issues to return
-  
+
     // first fetch
     $ret = $issueService->search($jql, $startAt, $maxResult);
     $totalCount = $ret->total;
-  	
+
     // do something with fetched data
     foreach ($ret->issues as $issue) {
         print (sprintf("%s %s \n", $issue->key, $issue->fields->summary));
     }
-  	
+
     // fetch remained data
     $page = $totalCount / $maxResult;
 
@@ -1237,7 +1239,7 @@ try {
         foreach ($ret->issues as $issue) {
             print (sprintf("%s %s \n", $issue->key, $issue->fields->summary));
         }
-    }     
+    }
 } catch (JiraException $e) {
     $this->assertTrue(false, 'testSearch Failed : '.$e->getMessage());
 }
@@ -1302,7 +1304,7 @@ try {
     $issueService = new IssueService();
 
     $rils = $issueService->getRemoteIssueLink($issueKey);
-        
+
     // rils is array of RemoteIssueLink classes
     var_dump($rils);
 } catch (JiraException $e) {
@@ -1365,16 +1367,16 @@ $issueKey = 'TEST-961';
 
 try {
     $issueService = new IssueService();
-    
+
     // get issue's time tracking info
     $ret = $issueService->getTimeTracking($this->issueKey);
     var_dump($ret);
-    
+
     $timeTracking = new TimeTracking;
 
     $timeTracking->setOriginalEstimate('3w 4d 6h');
     $timeTracking->setRemainingEstimate('1w 2d 3h');
-    
+
     // add time tracking
     $ret = $issueService->timeTracking($this->issueKey, $timeTracking);
     var_dump($ret);
@@ -1468,23 +1470,23 @@ $issueKey = 'TEST-961';
 
 try {
     $issueService = new IssueService();
-    
+
     // get issue's all worklog
     $worklogs = $issueService->getWorklog($issueKey)->getWorklogs();
     var_dump($worklogs);
-    
+
     // get worklog by id
     $wlId = 12345;
     $wl = $issueService->getWorklogById($issueKey, $wlId);
     var_dump($wl);
-    
+
 } catch (JiraException $e) {
     $this->assertTrue(false, 'testSearch Failed : '.$e->getMessage());
 }
 
 ```
 
-#### Add watcher to Issue 
+#### Add watcher to Issue
 
 [See Jira API reference](https://docs.atlassian.com/software/jira/docs/api/REST/latest/#api/2/issue-addWatcher)
 
@@ -1499,12 +1501,12 @@ $issueKey = 'TEST-961';
 
 try {
     $issueService = new IssueService();
-    
+
     // watcher's id
     $watcher = 'lesstif';
-    
+
     $issueService->addWatcher($issueKey, $watcher);
-    
+
 } catch (JiraException $e) {
     $this->assertTrue(false, 'add watcher Failed : '.$e->getMessage());
 }
@@ -1525,12 +1527,12 @@ $issueKey = 'TEST-961';
 
 try {
     $issueService = new IssueService();
-    
+
     // watcher's id
     $watcher = 'lesstif';
-    
+
     $issueService->removeWatcher($issueKey, $watcher);
-    
+
 } catch (JiraException $e) {
     $this->assertTrue(false, 'add watcher Failed : '.$e->getMessage());
 }
@@ -1565,7 +1567,7 @@ try {
     ;
 
     $issueService->notify($issueKey, $noti);
-    
+
 } catch (JiraException $e) {
     $this->assertTrue(false, 'Issue notify Failed : '.$e->getMessage());
 }
@@ -1591,7 +1593,7 @@ try {
         ->setOutwardIssue('TEST-249')
         ->setLinkTypeName('Relates' )
         ->setComment('Linked related issue via REST API.');
-            
+
     $ils = new IssueLinkService();
 
     $ret = $ils->addIssueLink($il);
@@ -1618,7 +1620,7 @@ try {
     $ils = new IssueLinkService();
 
     $ret = $ils->getIssueLinkTypes();
-    
+
     var_dump($ret);
 } catch (JiraException $e) {
     print("Error Occured! " . $e->getMessage());
@@ -1629,7 +1631,7 @@ try {
 
 [See Jira API reference](https://docs.atlassian.com/software/jira/docs/api/REST/latest/#api/2/user-createUser)
 
-Create user. 
+Create user.
 By default created user will not be notified with email. If password field is not set then password will be randomly generated.
 
 ```php
@@ -1686,7 +1688,7 @@ try {
 
 [See Jira API reference](https://docs.atlassian.com/software/jira/docs/api/REST/latest/#api/2/user-findUsers)
 
-Returns a list of users that match the search string and/or property. 
+Returns a list of users that match the search string and/or property.
 
 ```php
 <?php
@@ -1699,7 +1701,7 @@ try {
     $us = new UserService();
 
     $paramArray = [
-        'username' => '.', // get all users. 
+        'username' => '.', // get all users.
         'startAt' => 0,
         'maxResults' => 1000,
         'includeInactive' => true,
@@ -1718,7 +1720,7 @@ try {
 
 [See Jira API reference](https://docs.atlassian.com/software/jira/docs/api/REST/latest/#api/2/user-findAssignableUsers)
 
-Returns a list of users that match the search string. 
+Returns a list of users that match the search string.
 
 ```php
 <?php
@@ -1907,7 +1909,7 @@ try {
     $ps = new PriorityService();
 
     $p = $ps->getAll();
-	
+
     var_dump($p);
 } catch (JiraException $e) {
 	print("Error Occured! " . $e->getMessage());
@@ -1929,7 +1931,7 @@ try {
     $ps = new PriorityService();
 
     $p = $ps->get(1);
-	
+
     var_dump($p);
 } catch (JiraException $e) {
 	print("Error Occured! " . $e->getMessage());
@@ -1973,7 +1975,7 @@ use JiraRestApi\JiraException;
 try {
     $attachmentId = 12345;
     $outDir = "attachment_dir";
-    
+
     $atts = new AttachmentService();
     $att = $atts->get($attachmentId, $outDir, $overwrite = true);
 
