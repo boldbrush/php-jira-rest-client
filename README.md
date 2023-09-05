@@ -1,6 +1,6 @@
 # PHP JIRA Rest Client
 
-> IMPORTANT: This is a forked of https://github.com/lesstif/php-jira-rest-client, please use the original package.
+> IMPORTANT: This is a fork of https://github.com/lesstif/php-jira-rest-client, please use the original package.
 
 [![Latest Stable Version](https://poser.pugx.org/lesstif/php-jira-rest-client/v/stable)](https://packagist.org/packages/lesstif/php-jira-rest-client)
 [![Latest Unstable Version](https://poser.pugx.org/lesstif/php-jira-rest-client/v/unstable)](https://packagist.org/packages/lesstif/php-jira-rest-client)
